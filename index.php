@@ -6,10 +6,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="DESCRIPTION" content="Service which tells you if it's burger Wednesday" />
 <meta name="KEYWORDS" content="burger, cheeseburger, hamburger, delicious, bacon cheeseburger, would you like fries with that?" />
+
 <script type="text/javascript">
-var isitburgerwednesday = new Date().getDay() == 3;
+var today = new Date();
+var dow = today.getDay();
+var wednesday = 3;
+var isitburgerwednesday = dow == wednesday;
+if(!isitburgerwednesday) {
+  var daysuntilnextburgerwednesday = wednesday - dow; 
+  if (dow > wednesday) {
+    daysuntilnextburgerwednesday = 7 - (dow - wednesday);
+  }
+}
 var ie6 = false;
 </script>
+<script type="text/javascript" charset="utf-8" src="countdown.js"/>
 
 <!--[if IE 6]>
 <script type="text/javascript">
@@ -33,10 +44,15 @@ p.yes {
 }
 p.no {
    color: red;
+   margin-bottom: 0px;
 }
 p.disabled {
      font-size: 5em;
      color: gray;
+}
+#timeleft {
+  text-align: center;
+  font-weight: bold;
 }
 </style>
 </head>
@@ -44,6 +60,7 @@ p.disabled {
 
 <p class="yes" id="yes">Yes</p>
 <p class="no" id="no">No</p>
+<div id="timeleft">Time left until NEXT Burger Wednesday: <span id="countdown"></span></div>
 <p class="disabled" id="disabled">Sorry, isitburgerwednesday.com was designed specifically to not work with your browser.</p>
 
 <script type="text/javascript">
@@ -54,9 +71,9 @@ if (ie6) {
    document.getElementsByTagName("body")[0].className = "burger_wednesday";
 } else {
    document.getElementById("no").style.display='block';
+   countdown(today.getFullYear(), today.getMonth(), today.getDate() + daysuntilnextburgerwednesday, 0, 0);
 }
 </script>
-
 <noscript>
 <? if(date("w") == 3) { ?>
 <p class="yes" style="display:block">Yes</p>
