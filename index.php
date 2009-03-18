@@ -95,6 +95,7 @@ p.disabled {
 #timeleft {
   text-align: center;
   font-weight: bold;
+  display: none;
 }
 </style>
 </head>
@@ -113,6 +114,7 @@ if (ie6) {
    document.getElementsByTagName("body")[0].className = "burger_wednesday";
 } else {
    document.getElementById("no").style.display='block';
+   document.getElementById("timeleft").style.display='block';
    countdown(today.getFullYear(), today.getMonth(), today.getDate() + daysuntilnextburgerwednesday, 0, 0);
 }
 </script>
